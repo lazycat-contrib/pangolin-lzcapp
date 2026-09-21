@@ -1,0 +1,23 @@
+params:
+  - id: admin_email
+    type: string
+    name: "Admin Email"
+    description: "Administrator email for first-run initialization"
+    default_value: "admin@example.com"
+    optional: false
+
+  - id: admin_password
+    type: secret
+    name: "Admin Password"
+    description: "Administrator password for first-run initialization (at least 12 characters)"
+    default_value: "$random(len=20)"
+    optional: false
+
+locales:
+  zh:
+    admin_email:
+      name: "管理员邮箱"
+      description: "首次初始化管理员邮箱"
+    admin_password:
+      name: "管理员密码"
+      description: "首次初始化管理员密码（至少 12 位）"

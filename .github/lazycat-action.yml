@@ -1,0 +1,73 @@
+version: 1
+
+project:
+  root: .
+  build_config: lzc-build.yml
+  package_file: package.yml
+  output: dist/pangolin.lpk
+  target_arch: amd64
+
+update:
+  strategy: publish
+  allow_downgrade: false
+  version_source:
+    type: image
+    image: pangolin
+
+build:
+  run_buildscript: false
+
+images:
+  - id: pangolin
+    target: service
+    service: pangolin
+    source: ghcr.io/ca-x/pangolin
+    channel: stable
+    sort: semver
+    tag_regex: '^v?\d+\.\d+\.\d+$'
+    delivery:
+      mode: lazycat
+
+stores:
+  official:
+    enabled: true
+    continue_if_newer_version: true
+    skip_if_version_exists: true
+    create_if_missing: true
+    changelog_locales: [zh, en]
+    application:
+      language: zh
+      name: Pangolin
+      brief: "自托管 AI API 聚合网关与可观测控制台"
+      description: |-
+        Pangolin（鲮鲤）是一个自托管的 AI API 聚合网关，暴露 OpenAI 兼容与 Anthropic Messages 端点，提供提供商与模型路由、虚拟 API 密钥、成本核算与请求追踪，并内嵌中英双语控制台。
+
+        主要能力：
+        - 聊天、Responses、嵌入、图像、音频、视频、重排与异步任务端点
+        - 精确/正则/标签/条件模型路由，支持故障转移、轮询、加权、最少忙碌、延迟优先、粘性路由与熔断
+        - 项目、用户、角色、邀请、OIDC、API 密钥配置，以及 IP、配额、预算与日志策略
+        - 多加密凭据管理（优先级、轮换、探测、配额、自动禁用）
+        - 端到端可观测：Thread → Trace → Request → Execution → Usage/Cost
+        - SQLite 权威记录 + DuckDB 独立分析投影，支持加密备份与恢复
+      keywords: "ai,gateway,api,openai,anthropic,llm,rust"
+      source: https://github.com/ca-x/pangolin
+      source_author: ca-x
+      support_pc: true
+      support_mobile: true
+      screenshot_pc_files:
+        - .github/screenshots/pc-1.png
+        - .github/screenshots/pc-2.png
+        - .github/screenshots/pc-3.png
+        - .github/screenshots/pc-4.png
+        - .github/screenshots/pc-5.png
+        - .github/screenshots/pc-6.png
+      screenshot_mobile_files:
+        - .github/screenshots/mobile-1.png
+        - .github/screenshots/mobile-2.png
+        - .github/screenshots/mobile-3.png
+        - .github/screenshots/mobile-4.png
+  private:
+    enabled: true
+    skip_if_version_exists: true
+    name: Pangolin
+    summary: "自托管 AI API 聚合网关（懒猫版）"

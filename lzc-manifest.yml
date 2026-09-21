@@ -1,0 +1,46 @@
+application:
+  subdomain: pangolin
+  background_task: true
+  multi_instance: false
+  public_path:
+    - /
+  upstreams:
+    - location: /
+      backend: http://pangolin:8080/
+  injects:
+    # 免密登录：登录页自动填充部署参数中的管理员邮箱与密码
+    - id: login-autofill
+      when:
+        - /login
+        - /login?
+      do:
+        - src: builtin://simple-inject-password
+          params:
+            user: "{{ .U.admin_email }}"
+            password: "{{ .U.admin_password }}"
+            userSelector: "input[name='email']"
+            passwordSelector: "input[name='password']"
+
+services:
+  pangolin:
+    # upstream: ghcr.io/ca-x/pangolin:0.3.0
+    image: ghcr.io/ca-x/pangolin:0.3.0
+    environment:
+      - PANGOLIN_ADMIN_EMAIL={{ .U.admin_email }}
+      - PANGOLIN_ADMIN_PASSWORD={{ .U.admin_password }}
+      - PANGOLIN_DATA_DIR=/data
+      # 应用对外地址（OIDC 登录等场景必需，须为 https）
+      - PANGOLIN_PUBLIC_URL=https://${LAZYCAT_SUBDOMAIN}.${LAZYCAT_BOX_DOMAIN}
+    binds:
+      - /lzcapp/var/pangolin:/data
+    healthcheck:
+      test:
+        - CMD
+        - curl
+        - --fail
+        - --silent
+        - http://127.0.0.1:8080/api/health/live
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s

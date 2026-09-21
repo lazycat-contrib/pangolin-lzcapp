@@ -1,0 +1,15 @@
+package: community.lazycat.app.pangolin
+version: 0.3.0
+name: Pangolin
+description: "自托管 AI API 聚合网关与可观测控制台（Rust 单二进制）"
+min_os_version: 1.5.0
+author: ca-x
+license: Apache-2.0
+homepage: https://github.com/ca-x/pangolin
+locales:
+  zh:
+    name: "Pangolin 鲮鲤"
+    description: "自托管 AI API 聚合网关：OpenAI/Anthropic 兼容端点、模型路由与故障转移、虚拟密钥、成本核算与请求追踪"
+  en:
+    name: "Pangolin"
+    description: "Self-hosted AI API gateway and observability console: OpenAI/Anthropic-compatible endpoints, routing, virtual keys, cost accounting and tracing"
