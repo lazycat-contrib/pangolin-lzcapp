@@ -12,7 +12,7 @@ application:
     - id: login-autofill
       when:
         - /login
-        - /login?
+        - /login/*
       do:
         - src: builtin://simple-inject-password
           params:
