@@ -1,5 +1,5 @@
 package: community.lazycat.app.pangolin
-version: 0.4.0
+version: 0.5.0
 name: Pangolin
 description: "自托管 AI API 聚合网关与可观测控制台（Rust 单二进制）"
 min_os_version: 1.5.0
