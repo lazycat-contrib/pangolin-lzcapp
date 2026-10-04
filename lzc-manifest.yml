@@ -22,8 +22,8 @@ application:
             passwordSelector: "input[name='password']"
 services:
   pangolin:
-    # upstream: ghcr.io/ca-x/pangolin:0.6.2
-    image: registry.lazycat.cloud/czyt/ca-x/pangolin:afe18e618f762c8d
+    # upstream: ghcr.io/ca-x/pangolin:0.7.0
+    image: registry.lazycat.cloud/czyt/ca-x/pangolin:e3a63284b6c9b779
     user: root
     environment:
       - PANGOLIN_ADMIN_EMAIL={{ .U.admin_email }}
